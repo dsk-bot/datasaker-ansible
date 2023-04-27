@@ -14,7 +14,7 @@ The Ansible Datasaker role installs and configures the Datasaker Agent and integ
 Install the [Datasaker role] from Ansible Galaxy on your Ansible server:
 
 ```shell
-ansible-galaxy install datasaker.datasaker
+ansible-galaxy install dsk_bot.datasaker
 ```
 
 To deploy the Datasaker Agent on hosts, add the Datasaker role and your API key to your playbook:
@@ -23,7 +23,7 @@ To deploy the Datasaker Agent on hosts, add the Datasaker role and your API key 
 - hosts: servers
   become: true
   roles:
-    - role: datasaker.datasaker
+    - role: dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
     datasaker_agents: ["<AGENT_NAME>"]
@@ -63,7 +63,7 @@ In this example:
 - hosts: servers
   become: true
   roles:
-    - role: datasaker.datasaker
+    - role: dsk_bot.datasaker
   vars:
     datasaker_agents: ["<AGENT_NAME>"]
     uninstall: True

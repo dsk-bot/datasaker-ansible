@@ -66,12 +66,3 @@
   notify:
     - Reload systemd configuration
     - Restart {{ item }} service
-
-# - name: "Ensure datasaker agent is running"
-#   service:
-#     name: "{{ item }}"
-#     state: started
-#     enabled: yes
-#   with_items:
-#     - "{{ datasaker_agents }}"    
-

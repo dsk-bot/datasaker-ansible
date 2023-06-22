@@ -2,7 +2,7 @@ agent:
   metadata:
     agent_name: "{{ log_agent_name | default('dsk-log-agent') }}"
   collect:
-{% for collect_item in log_collects | default([{'paths': ['/var/log/*.log'], 'exclude_paths': [], 'keywords': [], 'tag': 'Default', 'service': {'name': 'default', 'category': 'etc', 'type': 'etc'}}]) %}
+{% for collect_item in log_collects | default([{'paths': ['/var/log/sample/*/*.log'], 'exclude_paths': [], 'keywords': [], 'tag': 'Default', 'service': {'name': 'default', 'category': 'etc', 'type': 'etc'}}]) %}
     - paths:
 {% for path in collect_item.paths %}
         - "{{ path }}"

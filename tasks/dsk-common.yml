@@ -1,5 +1,5 @@
 ---
-- name: Make Datasaker Directory
+- name: Make Datasaker Host Agent Directory
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -7,20 +7,28 @@
     owner: root
     group: root
   with_items:
-    - /etc/datasaker
+    - "{{ datasaker_host_path }}"
   when:
   - ansible_facts.os_family in ["Debian", "RedHat"]
   - datasaker_agents
 
-- name: "Setting global-config"
+- name: "create Host Agent global-config"
+  ansible.builtin.file:
+    path: "{{ datasaker_host_path }}/global-config.yml"
+    state: touch
+  when:
+  - ansible_facts.os_family in ["Debian", "RedHat"]
+  - datasaker_agents    
+
+- name: "Setting Host Agent global-config"
   template:
     src: global-config.yml.j2
-    dest: "/etc/datasaker/global-config.yml"
+    dest: "{{ datasaker_host_path }}/global-config.yml"
   when:
   - ansible_facts.os_family in ["Debian", "RedHat"]
   - datasaker_agents
 
-- name: "Make Datasaker Directory"
+- name: "Make Datasaker Docker Agent Directory"
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -30,14 +38,14 @@
   when:
   - datasaker_docker_agents
 
-- name: "Create agent config"
+- name: "Create Docker Agent global-config"
   ansible.builtin.file:
     path: "{{ datasaker_docker_global_config }}"
     state: touch
   when:
   - datasaker_docker_agents
 
-- name: "Setting global-config"
+- name: "Setting Docker Agent global-config"
   template:
     src: global-config.yml.j2
     dest: "{{ datasaker_docker_global_config }}"
